@@ -117,9 +117,9 @@ def process_split(
     }
 
 
-def build_data_yaml(path: Path, train_list: Path, val_list: Path, test_list: Path) -> None:
+def build_data_yaml(path: Path, dataset_root: Path, train_list: Path, val_list: Path, test_list: Path) -> None:
     data = {
-        "path": str(Path(".").resolve()),
+        "path": str(dataset_root.resolve()),
         "train": str(train_list.resolve()),
         "val": str(val_list.resolve()),
         "test": str(test_list.resolve()),
@@ -132,6 +132,12 @@ def main() -> None:
     parser = argparse.ArgumentParser(description="Normalize and validate Road Poles dataset.")
     parser.add_argument("--root", type=Path, default=Path("."), help="Dataset root directory.")
     parser.add_argument(
+        "--work-dir",
+        type=Path,
+        default=Path("."),
+        help="Where to write generated lists, reports, and configs/data_resolved.yaml (default: current directory).",
+    )
+    parser.add_argument(
         "--allow-missing-test-labels",
         action="store_true",
         help="Do not fail if test labels are absent (leaderboard setup).",
@@ -139,9 +145,10 @@ def main() -> None:
     args = parser.parse_args()
 
     root = args.root.resolve()
-    reports_dir = root / "reports"
-    generated_dir = root / "generated"
-    configs_dir = root / "configs"
+    work_dir = args.work_dir.resolve()
+    reports_dir = work_dir / "reports"
+    generated_dir = work_dir / "generated"
+    configs_dir = work_dir / "configs"
     reports_dir.mkdir(parents=True, exist_ok=True)
     generated_dir.mkdir(parents=True, exist_ok=True)
     configs_dir.mkdir(parents=True, exist_ok=True)
@@ -171,6 +178,7 @@ def main() -> None:
     data_yaml_path = configs_dir / "data_resolved.yaml"
     build_data_yaml(
         path=data_yaml_path,
+        dataset_root=root,
         train_list=generated_dir / "train_abs.txt",
         val_list=generated_dir / "val_abs.txt",
         test_list=generated_dir / "test_abs.txt",
