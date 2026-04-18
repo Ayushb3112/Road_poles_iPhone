@@ -1,0 +1,6 @@
+path: /Users/ayushb3112/Downloads/Road_poles_iPhone
+train: /Users/ayushb3112/Downloads/Road_poles_iPhone/generated/train_abs.txt
+val: /Users/ayushb3112/Downloads/Road_poles_iPhone/generated/val_abs.txt
+test: /Users/ayushb3112/Downloads/Road_poles_iPhone/generated/test_abs.txt
+names:
+  0: pole

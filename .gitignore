@@ -1,0 +1,19 @@
+__pycache__/
+*.pyc
+.DS_Store
+.venv/
+venv/
+runs/
+outputs/
+reports/*.json
+
+# Dataset and training artifacts
+images/
+labels/
+generated/
+*.pt
+
+# Dataset index files
+Train.txt
+Validation.txt
+Test.txt
