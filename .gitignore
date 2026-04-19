@@ -12,7 +12,7 @@ images/
 labels/
 generated/
 *.pt
-
+*.md
 # Dataset index files
 Train.txt
 Validation.txt
